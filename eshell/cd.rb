@@ -5,11 +5,13 @@ module EShell::Cd
   end
 
   class CdCommand < ::EShell::CommandBase
+    @@last = "/"
     def exec(*args)
       dir = args[0]
-      dir = "." if dir == nil
-      ret = Dir.chdir(dir)
-      puts "failed to chdir to #{dir}" if (ret != 0)
+      dir = "/" if dir == nil
+      dir = @@last if dir == "-"
+      @@last = Dir.getwd
+      Dir.chdir(dir)
     end
 
     def help(name)
