@@ -8,7 +8,9 @@ module EShell::Ls
     def exec(*args)
       dir = args[0]
       dir = "." if dir == nil
-      p Dir.entries(dir)
+      Dir.entries(dir).each do |f|
+        puts "#{f}\t#{File.size(f)}"
+      end
     end
 
     def help(name)
