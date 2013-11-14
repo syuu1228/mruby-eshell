@@ -26,7 +26,7 @@ end
 
 funcs = {"ls" => ls, "run" => run, "exit" => _exit, "help" => help}
 
-puts "OSv/mruby shell"
+puts "mruby-eshell"
 
 loop do
 	print "$ "
