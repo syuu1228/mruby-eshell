@@ -10,13 +10,9 @@ module EShell
 
   def self.require(path)
     basedir = File.dirname File.realpath(__FILE__)
-    begin
-      open("#{basedir}/#{path}.rb", "rb") do |fp|
-        source = fp.read
-        eval(source)
-      end
-    rescue NoMethodError => e
-      raise File::NoFileError.new "no such file or directory"
+    open("#{basedir}/#{path}.rb", "rb") do |fp|
+      source = fp.read
+      eval(source)
     end
   end
 
