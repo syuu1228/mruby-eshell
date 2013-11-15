@@ -1,47 +1,70 @@
 
-ls = Proc.new do |dir|
-	dir = "." if dir == nil
-	p Dir.entries(dir)
+module EShell
+  class CommandBase
+    def exec(*args)
+    end
+
+    def help(name)
+    end
+  end
+
+  def self.require(path)
+    basedir = File.dirname File.realpath(__FILE__)
+    open("#{basedir}/#{path}.rb", "rb") do |fp|
+      source = fp.read
+      eval(source)
+    end
+  end
+
+  def self.register(name, klass)
+    @commands ||= {}
+    @commands[name] = klass
+  end
+
+  def self.help
+    @commands.each do |name, command|
+      if command.is_a? EShell::CommandBase
+        command.help name
+      end
+    end
+  end
+
+  def self.run
+    puts "OSv/mruby shell"
+    EShell.require "eshell/_loader"
+
+
+    @commands ||= {}
+
+    loop do
+      print "$ "
+
+      begin
+        args = gets.chop.split(/ /)
+      rescue NoMethodError => e
+        puts
+        next
+      end
+
+      name = args.shift # $0
+
+      if @commands.key? name
+        begin
+          command = @commands[name]
+          if command.is_a? EShell::CommandBase
+            command.send(:exec, *args)
+          end
+        rescue => e
+          p e
+        rescue SyntaxError => e
+          p e
+        end
+      else
+        help
+      end
+    end
+  end
 end
 
-run = Proc.new do |fn|
-	if fn == nil
-		puts "run requires more argument"
-		return
-	end
-	f = File.open(fn)
-	prog = f.read
-	eval(prog)
-end
+EShell.run
 
-_exit = Proc.new do ||
-	exit
-end
-
-help = Proc.new do ||
-	puts "ls <dir>"
-	puts "run <file>"
-	puts "exit"
-end
-
-funcs = {"ls" => ls, "run" => run, "exit" => _exit, "help" => help}
-
-puts "mruby-eshell"
-
-loop do
-	print "$ "
-	line = gets.split(/ /)
-	line[line.length - 1].chop!
-	if funcs.key? line[0]
-		begin
-			func = funcs[line[0]]
-			func.call line[1]
-		rescue => e
-			p e
-		rescue SyntaxError => e
-			p e
-		end
-	else
-		help.call
-	end
-end
