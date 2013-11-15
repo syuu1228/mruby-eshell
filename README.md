@@ -9,6 +9,10 @@ You'll need following mrbgems to run it on mruby:
 * mruby-regexp-pcre
 * mruby-dir
 
+## Tested platforms
+* μOSv
+* Ubuntu 13.10/x86_64
+ 
 ## License
 
 Copyright (c) 2013 Takuya ASADA.
