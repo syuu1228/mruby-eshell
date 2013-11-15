@@ -8,6 +8,7 @@ You'll need following mrbgems to run it on mruby:
 * mruby-io
 * mruby-regexp-pcre
 * mruby-dir
+* mruby-exit
 
 ## Tested platforms
 * μOSv

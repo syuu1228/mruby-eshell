@@ -15,6 +15,7 @@ MRuby::Build.new do |conf|
   conf.gembox 'default'
 
   conf.gem :core => "mruby-eval"
+  conf.gem :core => "mruby-exit"
   conf.gem :git => 'https://github.com/iij/mruby-io.git'
   conf.gem :git => 'https://github.com/iij/mruby-regexp-pcre.git'
   conf.gem :git => 'https://github.com/iij/mruby-dir.git'
