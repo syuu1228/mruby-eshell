@@ -5,3 +5,4 @@
 /eshell/run.rb: module/mruby-eshell/eshell/run.rb
 /eshell/cat.rb: module/mruby-eshell/eshell/cat.rb
 /eshell/cd.rb: module/mruby-eshell/eshell/cd.rb
+/eshell/pwd.rb: module/mruby-eshell/eshell/pwd.rb
