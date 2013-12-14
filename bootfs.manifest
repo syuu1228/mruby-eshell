@@ -1,8 +1,0 @@
-/eshell.rb: module/mruby-eshell/eshell.rb
-/eshell/_loader.rb: module/mruby-eshell/eshell/_loader.rb
-/eshell/exit.rb: module/mruby-eshell/eshell/exit.rb
-/eshell/ls.rb: module/mruby-eshell/eshell/ls.rb
-/eshell/run.rb: module/mruby-eshell/eshell/run.rb
-/eshell/cat.rb: module/mruby-eshell/eshell/cat.rb
-/eshell/cd.rb: module/mruby-eshell/eshell/cd.rb
-/eshell/pwd.rb: module/mruby-eshell/eshell/pwd.rb

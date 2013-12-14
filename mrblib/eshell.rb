@@ -1,4 +1,3 @@
-
 module EShell
   class CommandBase
     def exec(*args)
@@ -65,6 +64,3 @@ module EShell
     end
   end
 end
-
-EShell.run
-
