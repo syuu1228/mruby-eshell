@@ -7,5 +7,4 @@ MRuby::Gem::Specification.new('mruby-eshell') do |spec|
   spec.add_dependency 'mruby-dir'
   spec.add_dependency 'mruby-exit'
   spec.add_dependency 'mruby-require'
-  spec.rbfiles = Dir.glob(["#{dir}/mrblib/*.rb", "#{dir}/mrblib/*/*.rb"])
 end
