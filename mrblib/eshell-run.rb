@@ -1,9 +1,5 @@
 
 module EShell::Run
-  def self.included(klass)
-    EShell.register("run", RunCommand.new)
-  end
-
   class RunCommand < ::EShell::CommandBase
     def exec(*args)
       fn = args[0]

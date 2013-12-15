@@ -1,9 +1,5 @@
 
 module EShell::Ls
-  def self.included(klass)
-    EShell.register("ls", LsCommand.new)
-  end
-
   class LsCommand < ::EShell::CommandBase
     def exec(*args)
       dir = args[0]

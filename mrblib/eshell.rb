@@ -1,18 +1,4 @@
-require "eshell-ls"
-require "eshell-run"
-require "eshell-exit"
-require "eshell-cat"
-require "eshell-cd"
-require "eshell-pwd"
-
 module EShell
-  include EShell::Ls
-  include EShell::Run
-  include EShell::Exit
-  include EShell::Cat
-  include EShell::Cd
-  include EShell::Pwd
-
   class CommandBase
     def exec(*args)
     end
@@ -21,12 +7,8 @@ module EShell
     end
   end
 
-  def self.register(name, klass)
-    @commands ||= {}
-    @commands[name] = klass
-  end
-
   def self.help
+    puts "Help"
     @commands.each do |name, command|
       if command.is_a? EShell::CommandBase
         command.help name
@@ -35,10 +17,23 @@ module EShell
   end
 
   def self.run
+    include EShell::Ls
+    include EShell::Run
+    include EShell::Exit
+    include EShell::Cat
+    include EShell::Cd
+    include EShell::Pwd
+
+    @commands = {}
+    @commands["cat"] = CatCommand.new
+    @commands["cd"] = CdCommand.new
+    @commands["exit"] = ExitCommand.new
+    @commands["pwd"] = PwdCommand.new
+    @commands["run"] = RunCommand.new
+    @commands["ls"] = LsCommand.new
+
     puts "mruby-eshell"
     puts 
-
-    @commands ||= {}
 
     loop do
       print "$ "
@@ -69,3 +64,10 @@ module EShell
     end
   end
 end
+
+require "eshell-ls"
+require "eshell-run"
+require "eshell-exit"
+require "eshell-cat"
+require "eshell-cd"
+require "eshell-pwd"

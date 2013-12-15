@@ -1,9 +1,5 @@
 
 module EShell::Cd
-  def self.included(klass)
-    EShell.register("cd", CdCommand.new)
-  end
-
   class CdCommand < ::EShell::CommandBase
     @@last = "/"
     def exec(*args)

@@ -1,9 +1,5 @@
 
 module EShell::Cat
-  def self.included(klass)
-    EShell.register("cat", CatCommand.new)
-  end
-
   class CatCommand < ::EShell::CommandBase
     def exec(*args)
       fn = args[0]
