@@ -19,6 +19,7 @@ MRuby::Build.new do |conf|
   conf.gem :git => 'https://github.com/iij/mruby-io.git'
   conf.gem :git => 'https://github.com/iij/mruby-regexp-pcre.git'
   conf.gem :git => 'https://github.com/iij/mruby-dir.git'
+  conf.gem :git => 'https://github.com/iij/mruby-require.git'
   conf.gem :git => 'https://github.com/syuu1228/mruby-eshell.git'
 
   # C compiler settings

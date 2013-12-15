@@ -7,14 +7,6 @@ module EShell
     end
   end
 
-  def self.require(path)
-    basedir = File.dirname File.realpath(__FILE__)
-    open("#{basedir}/#{path}.rb", "rb") do |fp|
-      source = fp.read
-      eval(source)
-    end
-  end
-
   def self.register(name, klass)
     @commands ||= {}
     @commands[name] = klass
@@ -31,7 +23,7 @@ module EShell
   def self.run
     puts "mruby-eshell"
     puts 
-    EShell.require "eshell/_loader"
+    require "eshell/_loader"
 
 
     @commands ||= {}

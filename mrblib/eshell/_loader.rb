@@ -1,10 +1,10 @@
 
-EShell.require "eshell/ls"
-EShell.require "eshell/run"
-EShell.require "eshell/exit"
-EShell.require "eshell/cat"
-EShell.require "eshell/cd"
-EShell.require "eshell/pwd"
+require "eshell/ls"
+require "eshell/run"
+require "eshell/exit"
+require "eshell/cat"
+require "eshell/cd"
+require "eshell/pwd"
 
 module EShell
   include EShell::Ls
