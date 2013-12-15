@@ -7,6 +7,11 @@ module EShell
     end
   end
 
+  def self.register(name, klass)
+    @commands ||= {}
+    @commands[name] = klass
+  end
+
   def self.help
     puts "Help"
     @commands.each do |name, command|
@@ -17,21 +22,6 @@ module EShell
   end
 
   def self.run
-    include EShell::Ls
-    include EShell::Run
-    include EShell::Exit
-    include EShell::Cat
-    include EShell::Cd
-    include EShell::Pwd
-
-    @commands = {}
-    @commands["cat"] = CatCommand.new
-    @commands["cd"] = CdCommand.new
-    @commands["exit"] = ExitCommand.new
-    @commands["pwd"] = PwdCommand.new
-    @commands["run"] = RunCommand.new
-    @commands["ls"] = LsCommand.new
-
     puts "mruby-eshell"
     puts 
 
@@ -65,9 +55,103 @@ module EShell
   end
 end
 
-require "eshell-ls"
-require "eshell-run"
-require "eshell-exit"
-require "eshell-cat"
-require "eshell-cd"
-require "eshell-pwd"
+module EShell::Cat
+  class CatCommand < ::EShell::CommandBase
+    def exec(*args)
+      fn = args[0]
+      unless fn
+        puts "cat requires more argument"
+        return
+      end
+      f = File.open(fn)
+      puts f.read
+      f.close
+    end
+
+    def help(name)
+      puts "cat <file>"
+    end
+  end
+end
+
+module EShell::Cd
+  class CdCommand < ::EShell::CommandBase
+    @@last = "/"
+    def exec(*args)
+      dir = args[0]
+      dir = "/" if dir == nil
+      dir = @@last if dir == "-"
+      @@last = Dir.getwd
+      Dir.chdir(dir)
+    end
+
+    def help(name)
+      puts "cd <dir>"
+    end
+  end
+end
+
+module EShell::Exit
+  class ExitCommand < ::EShell::CommandBase
+    def exec(*args)
+      exit
+    end
+
+    def help(name)
+      puts name
+    end
+  end
+end
+
+module EShell::Ls
+  class LsCommand < ::EShell::CommandBase
+    def exec(*args)
+      dir = args[0]
+      dir = "." if dir == nil
+      p Dir.entries(dir)
+    end
+
+    def help(name)
+      puts "ls <dir>"
+    end
+  end
+end
+
+
+module EShell::Pwd
+  class PwdCommand < ::EShell::CommandBase
+    def exec(*args)
+      puts Dir.getwd
+    end
+
+    def help(name)
+      puts "pwd"
+    end
+  end
+end
+
+
+module EShell::Run
+  class RunCommand < ::EShell::CommandBase
+    def exec(*args)
+      fn = args[0]
+      unless fn
+        puts "run requires more argument"
+        return
+      end
+      f = File.open(fn)
+      prog = f.read
+      eval(prog)
+    end
+
+    def help(name)
+      puts "run <file>"
+    end
+  end
+end
+
+EShell.register("cat", EShell::Cat::CatCommand.new)
+EShell.register("exit", EShell::Exit::ExitCommand.new)
+EShell.register("ls", EShell::Ls::LsCommand.new)
+EShell.register("pwd", EShell::Pwd::PwdCommand.new)
+EShell.register("run", EShell::Run::RunCommand.new)
