@@ -151,6 +151,7 @@ module EShell::Run
 end
 
 EShell.register("cat", EShell::Cat::CatCommand.new)
+EShell.register("cd", EShell::Cd::CdCommand.new)
 EShell.register("exit", EShell::Exit::ExitCommand.new)
 EShell.register("ls", EShell::Ls::LsCommand.new)
 EShell.register("pwd", EShell::Pwd::PwdCommand.new)
